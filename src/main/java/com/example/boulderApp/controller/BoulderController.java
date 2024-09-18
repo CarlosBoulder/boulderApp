@@ -11,34 +11,32 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.boulderApp.dto.UserInDto;
-import com.example.boulderApp.dto.UserOutDto;
-import com.example.boulderApp.errors.UserNotFoundException;
-import com.example.boulderApp.service.UserService;
+import com.example.boulderApp.dto.BoulderIn;
+import com.example.boulderApp.dto.BoulderOut;
+import com.example.boulderApp.errors.BoulderNotFoundException;
+import com.example.boulderApp.service.BoulderService;
 
-import lombok.RequiredArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @RestController()
-@RequestMapping(path = "api/v1/users")
-@RequiredArgsConstructor
-public class UserController {
+@RequestMapping(path = "api/v1/boulders")
+@NoArgsConstructor
+public class BoulderController {
     @Autowired
-    private UserService userService;
+    private BoulderService boulderService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public UserOutDto createUser(@RequestBody UserInDto userInDto){
-        UserOutDto userOutDto = userService.saveUser(userInDto);
-
-        return userOutDto;
+    public BoulderOut createBoulder(@RequestBody BoulderIn boulderIn){
+        return boulderService.saveBoulder(boulderIn);
     }
-
-    @DeleteMapping("/{userId}")
-    public ResponseEntity<HttpStatus> deleteUser(@PathVariable("userId") Long userId){
+    
+    @DeleteMapping("/{boulderId}")
+    public ResponseEntity<HttpStatus> deleteBoulder(@PathVariable("boulderId") Long boulderId){
         try {
-            userService.delete(userId);
+            boulderService.delete(boulderId);
             return new ResponseEntity<>(HttpStatus.OK);
-        } catch (UserNotFoundException exception) {
+        } catch (BoulderNotFoundException exception) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         } catch (Exception exception) {
             return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

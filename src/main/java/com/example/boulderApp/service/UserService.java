@@ -19,9 +19,7 @@ public class UserService {
     public UserOutDto saveUser(UserInDto userInDto){
         User user = userRepository.save(new User(userInDto.getUsername(), userInDto.getEmail()));
 
-        UserOutDto userOutDto = new UserOutDto(user.getUsername(), user.getEmail());
-
-        return userOutDto;
+        return new UserOutDto(user.getUsername(), user.getEmail());
     }
 
     public void delete(Long id){
