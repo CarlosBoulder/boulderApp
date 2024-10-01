@@ -16,13 +16,13 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public UserOutDto saveUser(UserInDto userInDto){
+    public UserOutDto saveUser(UserInDto userInDto) {
         User user = userRepository.save(new User(userInDto.getUsername(), userInDto.getEmail()));
 
         return new UserOutDto(user.getUsername(), user.getEmail());
     }
 
-    public void delete(Long id){
+    public void delete(Long id) {
         Optional<User> user = userRepository.findById(id);
         if (user.isEmpty()) {
             throw new UserNotFoundException();

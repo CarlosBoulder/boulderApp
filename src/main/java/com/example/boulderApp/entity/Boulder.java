@@ -28,7 +28,7 @@ public class Boulder {
     @Column(name = "crag", nullable = false, length = 100)
     private String crag;
 
-    public Boulder (String boulderName, String grade, String crag){
+    public Boulder(String boulderName, String grade, String crag) {
         this.boulderName = boulderName;
         this.grade = grade;
         this.crag = crag;
